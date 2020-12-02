@@ -1,8 +1,11 @@
+import os
 from client import RestClient
-import json
+from dotenv import load_dotenv
 
-login = 'seo@geo.scout24.ch'
-password = 'f54cf34a878fe078'
+
+load_dotenv()
+login = os.getenv("LOGIN")
+password = os.getenv("PASSWORD")
 
 client = RestClient(login, password)
 
@@ -27,7 +30,13 @@ with open('keywords.txt') as keywords:
                 if item['type'] != 'organic':
                     continue
                 else:
-                    print(f"{keyword}|{item['rank_absolute']}|{item['rank_group']}|{item['type']}|{item['domain']}|{item['url']}|{item['faq']}|{item['extended_snippet']}")
+                    print(f"{item['rank_absolute']}|"\
+                          f"{item['rank_group']}|"\
+                          f"{item['type']}|"\
+                          f"{item['domain']}|"\
+                          f"{item['url']}|"\
+                          f"{item['faq']}|"\
+                          f"{item['extended_snippet']}")
 
         else:
             print("error. Code: %d Message: %s" % (response["status_code"], response["status_message"]))

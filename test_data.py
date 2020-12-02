@@ -8,7 +8,13 @@ with open('res.json') as start_file:
         if item['type'] != 'organic':
             continue
         else:
-            print(f"{item['rank_absolute']}|{item['rank_group']}|{item['type']}|{item['domain']}|{item['url']}|{item['faq']}|{item['extended_snippet']}")
+            print(f"{item['rank_absolute']}|"\
+                  f"{item['rank_group']}|"\
+                  f"{item['type']}|"\
+                  f"{item['domain']}|"\
+                  f"{item['url']}|"\
+                  f"{item['faq']}|"\
+                  f"{item['extended_snippet']}")
     # import pdb; pdb.set_trace()
 
 
