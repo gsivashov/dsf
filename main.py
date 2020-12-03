@@ -16,12 +16,20 @@ def get_results(keyword):
         calculate_rectangles=True
     )
     response = client.post("/v3/serp/google/organic/live/advanced", post_data)
+    # check API errors - no money or no response etc. Logging in to main.log file
+
     if response["status_code"] == 20000:
         if response['tasks'][0]['status_code'] == 20000:
             return response
-        else: logging.info("error. Code: %d Message: %s" % (response['tasks'][0]['status_code'], response['tasks'][0]["status_message"]))
+        else: logging.info(
+            f'error. Code: {response["tasks"][0]["status_code"]}' 
+            f'Message: {response["tasks"][0]["status_message"]}'
+            )
     else:
-        logging.info("error. Code: %d Message: %s" % (response["status_code"], response["status_message"]))
+        logging.info(
+            f'error. Code: {response["status_code"]}' 
+            f'Message: {response["status_message"]}'
+            )
         
 
 def parse_result(response, keyword, fileds, domains):
