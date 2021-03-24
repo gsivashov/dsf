@@ -12,19 +12,19 @@ Do it only when you creating project. Dont create it each time.
 
 Sometimes it could be `python3`, `py`, `py3`
 
-## Activating virtual environment:
+## 2. Activating virtual environment:
 
 ```
 source .venv/bin/activate
 ```
 
-## Install libraries:
+## 3. Install libraries:
 
 ```
 pip install -r requirements.txt
 ```
 
-## Create .env file:
+## 4. Create .env file:
 
 Create `.env` file and add your credentials for DataForSEO API
 
@@ -32,6 +32,11 @@ Create `.env` file and add your credentials for DataForSEO API
 LOGIN="your@email.com"
 PASSWORD="y0uRpa5Sw0rD"
 ```
+
+## 5. Create logs folder
+
+Create `logs` folder in the same directory where you unpacked sripts
+Then add `main.log` file to this category
 
 # Usage
 
@@ -101,6 +106,9 @@ python keywords_for_category.py
 # SERP parsing
 
 ## google_live_advanced_treads.py
+
+This scrip is experimental. It uses live method (most expencive one).
+Will work in threads
 
 # Stopwords.txt
 
