@@ -1,3 +1,4 @@
+# Ignore
 .venv/
 .vscode/
 __pycache__/
@@ -5,4 +6,13 @@ logs/
 .env
 *.csv
 *.json
+*.txt
 test*
+tread.py
+create_file.py
+
+# Allow
+!keywords.txt
+!requirements.txt
+!categories.csv
+!category.txt

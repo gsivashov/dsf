@@ -1,3 +1,4 @@
+import time
 import os
 import logging
 import argparse
@@ -5,6 +6,7 @@ import argparse
 from pathlib import Path
 from client import RestClient
 from dotenv import load_dotenv
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def get_results(keyword):
     # send request to DataForSEO and return response
@@ -22,7 +24,7 @@ def get_results(keyword):
         if response['tasks'][0]['status_code'] == 20000:
             return response
         else: logging.info(
-            f'error. Code: {response["tasks"][0]["status_code"]}' 
+            f'error. Code: {response["tasks"][0]["status_code"]} '
             f'Message: {response["tasks"][0]["status_message"]}'
             )
     else:
@@ -32,27 +34,26 @@ def get_results(keyword):
             )
         
 
-def parse_result(response, keyword, fileds, domains):
+def parse_result(response, keyword, fields):
     # parse result and return only organic result
     data = response['tasks'][0]['result'][0]['items']
     
     result = []
-
     for item in data:
-        item_list = [
-            str(item[field]) for domain in domains for field in fields 
-            if item['type'] == 'organic' and domain in item['domain']
-        ]
-        item_list.insert(0,keyword)
-        if len(item_list) > 1:
-            result.append(item_list)
+        if item['type'] == 'organic':
+            item_list = [
+                str(item[field]) for field in fields 
+            ]
+            item_list.insert(0,keyword)
+            if len(item_list) > 1:
+                result.append(item_list)
     return result
 
 
 def main(params, fields):
 
     keywords = Path(params.keywords)
-    domains = Path(params.domains)
+    # domains = Path(params.domains)
     # table header:
     print(f"keyword|{'|'.join(fields)}")
 
@@ -63,19 +64,10 @@ def main(params, fields):
 
             logging.info(keyword)
 
-            try:
-                result = get_results(keyword)
-                for row in parse_result(result, keyword, fields, domains):
-                    print('|'.join(row), flush=True)
+            result = get_results(keyword)
+            for row in parse_result(result, keyword, fields):
+                print('|'.join(row), flush=True)
 
-            except Exception as e:
-                error = str(e)
-            if error:
-                logging.error(error)
-            else:
-                logging.info(
-                    f'{keyword} data SUCCESSFULLY collected'
-                )
 
 if __name__ == '__main__':
 
@@ -125,7 +117,10 @@ if __name__ == '__main__':
     params = parser.parse_args()
 
     logging.info('Started')
+    start = time.perf_counter()
     
     main(params, fields)
 
+    end = time.perf_counter()
+    print('elapsed time: ', end - start)
     logging.info('Done')
