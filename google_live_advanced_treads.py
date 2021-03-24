@@ -152,12 +152,12 @@ if __name__ == '__main__':
         required=True
     )
 
-    parser.add_argument(
-        '--domains',
-        type=str,
-        default='domains.txt',
-        help='enter path to file with DOMAINS. default: domains.txt'
-    )
+    # parser.add_argument(
+    #     '--domains',
+    #     type=str,
+    #     default='domains.txt',
+    #     help='enter path to file with DOMAINS. default: domains.txt'
+    # )
 
     parser.add_argument(
         '--delimiter',

@@ -110,10 +110,10 @@ python keywords_for_category.py
 This scrip is experimental. It uses live method (most expencive one).
 Will work in threads
 
-# Stopwords.txt
+Required arguments:
 
-http://official-swiss-national-languages.all-about-switzerland.info/names-swiss-villages-towns-languages.html#A
+`--keywords` - path to file with keywords. by defalut it's `keywords.txt`
+`--line` - index of row with keywords. Index, not number. Index starts from 0
 
-```
-copy($x('//td[@class="bl"]/text()').map(i => i.textContent))
-```
+Supported arguments:
+`--delimiter` - specify delimier. By default it's `|`
